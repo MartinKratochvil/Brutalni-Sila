@@ -79,7 +79,7 @@ namespace BrutalniSila {
             hash = 0;
             label2.Text = ">" + new String(c) + "<";
             time++;
-            label3.Text = "time: " + time.ToString() + " s";
+            label3.Text = time.ToString() + " s";
 
         }
     }
