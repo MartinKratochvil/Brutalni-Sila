@@ -16,23 +16,61 @@ namespace BrutalniSila {
             InitializeComponent();
         }
         double hash = 0;
-        int time = 0;
+        DateTime startTime;
         char[] c;
+        ulong Num = 0;
         Thread th;
+        bool Erase = false;
+        private void Form1_Load(object sender, EventArgs e) {
+            using (StreamReader read = File.OpenText(@"../../Log.dat")) {
+                string line = read.ReadLine();
+                if (line != "none") {
+                    if (line.Split('°')[2] == "password") {
+                        c = line.Split('°')[0].ToCharArray();
+                        th = new Thread(new ThreadStart(BruteForceChars));
+                        radioButton1.Checked = true; 
+                    }
+                    else if (line.Split('°')[2] == "pin") {
+                        Num = UInt64.Parse(line.Split('°')[0]);
+                        th = new Thread(new ThreadStart(BruteForceNums));
+                        radioButton2.Checked = true;
+                    }
+                    startTime = DateTime.Now - TimeSpan.Parse(line.Split('°')[3]);
+                    textBoxPassword.Text = line.Split('°')[1];
+                    th.Start();
+                    timerHash.Start();
+                    timerTime.Start();
+                }
+                else { startTime = DateTime.Now; }
+            }
+        }
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
+            using (StreamWriter write = File.CreateText(@"../../Log.dat")) {
+                if (th.IsAlive) {
+                    if (radioButton1.Checked) {
+                        write.WriteLine(new string(c) + "°" + textBoxPassword.Text + "°password°" + (DateTime.Now - startTime).ToString());
+                    }
+                    else {
+                        write.WriteLine(Num.ToString() + "°" + textBoxPassword.Text + "°pin°" + (DateTime.Now - startTime).ToString());
+                    }
+                    th.Abort();
+                }
+                else { write.WriteLine("none"); }
+            }
+        }
         private void buttonStart_Click(object sender, EventArgs e) {
-            th = new Thread(new ThreadStart(BruteForce));
+            if (radioButton1.Checked) { th = new Thread(new ThreadStart(BruteForceChars)); }
+            else { th = new Thread(new ThreadStart(BruteForceNums)); }
+            c = new char[2];
+            for (int i = 0; i < 2; i++) { c[i] = (char)32; }
+            Num = 0;
             th.Start();
-            timer1.Start();
+            timerHash.Start();
+            timerTime.Start();
         }
-        private void button1_Click(object sender, EventArgs e) {
-            MessageBox.Show("-" + new String(c) + "- " + new String(c).Length);
-        }
-        private void BruteForce() {
+        private void BruteForceChars() {
             int min = 32, max = 126;
             string password = textBoxPassword.Text;
-             c = new char[2];
-            c[0] = (char)min;
-            c[1] = (char)min;
             int i = c.Length - 1;
             while (new String(c) != password) {
                 c[i]++;
@@ -55,32 +93,30 @@ namespace BrutalniSila {
                         }
                     }
                 }
+                while (Erase) { }
                 hash++;
             }
-            timer1.Stop();
+            timerTime.Stop();
             MessageBox.Show("succ");
-        } 
-        /*private void write(string s) {
-            if (num < 1000000) {
-                using (StreamWriter write = File.AppendText(@"../../Log.txt")) {
-                    write.WriteLine("-" + s + "-");
-                }
+        }
+        private void BruteForceNums() {
+            ulong password = UInt64.Parse(textBoxPassword.Text);
+            while (Num != password) {
+                Num++;
+                while (Erase) { }
+                hash++;
             }
-            else {
-                num = 0;
-                using (StreamWriter write = File.CreateText(@"../../Log.txt")) {
-                    write.WriteLine("-" + s + "-");
-                }
-            }
-            num++;
-        }*/
-        private void timer1_Tick(object sender, EventArgs e) {
-            label1.Text = (hash / 1000000).ToString() + " MH";
+            timerTime.Stop();
+            MessageBox.Show("succ");
+        }
+        private void timerTime_Tick(object sender, EventArgs e) {
+            labelTime.Text = (DateTime.Now - startTime).ToString(@"hh\:mm\:ss\.fff") + " s";
+        }
+        private void timerHash_Tick(object sender, EventArgs e) {
+            labelHash.Text = (Math.Round(hash / 1000000, 3)).ToString() + " MH";
+            Erase = true;
             hash = 0;
-            label2.Text = ">" + new String(c) + "<";
-            time++;
-            label3.Text = time.ToString() + " s";
-
+            Erase = false;
         }
     }
 }
