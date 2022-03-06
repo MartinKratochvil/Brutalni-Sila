@@ -15,20 +15,20 @@ namespace BrutalniSila {
         public Form1() {
             InitializeComponent();
         }
-        double hash = 0;
+        Thread th;
         DateTime startTime;
         char[] c;
         ulong Num = 0;
-        Thread th;
-        bool Erase = false;
+        double hash = 0;
+        bool Erase = false, Start = true;
         private void Form1_Load(object sender, EventArgs e) {
             using (StreamReader read = File.OpenText(@"../../Log.dat")) {
                 string line = read.ReadLine();
+                th = new Thread(new ThreadStart(BruteForceChars));
                 if (line != "none") {
                     if (line.Split('°')[2] == "password") {
                         c = line.Split('°')[0].ToCharArray();
-                        th = new Thread(new ThreadStart(BruteForceChars));
-                        radioButton1.Checked = true; 
+                        radioButton1.Checked = true;
                     }
                     else if (line.Split('°')[2] == "pin") {
                         Num = UInt64.Parse(line.Split('°')[0]);
@@ -40,8 +40,9 @@ namespace BrutalniSila {
                     th.Start();
                     timerHash.Start();
                     timerTime.Start();
+                    buttonStart.Text = "stop";
+                    Start = false;
                 }
-                else { startTime = DateTime.Now; }
             }
         }
         private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
@@ -59,14 +60,26 @@ namespace BrutalniSila {
             }
         }
         private void buttonStart_Click(object sender, EventArgs e) {
-            if (radioButton1.Checked) { th = new Thread(new ThreadStart(BruteForceChars)); }
-            else { th = new Thread(new ThreadStart(BruteForceNums)); }
-            c = new char[2];
-            for (int i = 0; i < 2; i++) { c[i] = (char)32; }
-            Num = 0;
-            th.Start();
-            timerHash.Start();
-            timerTime.Start();
+            if (Start) {
+                startTime = DateTime.Now;
+                if (radioButton1.Checked) { th = new Thread(new ThreadStart(BruteForceChars)); }
+                else { th = new Thread(new ThreadStart(BruteForceNums)); }
+                c = new char[2];
+                for (int i = 0; i < 2; i++) { c[i] = (char)32; }
+                Num = 0;
+                th.Start();
+                timerHash.Start();
+                timerTime.Start();
+                buttonStart.Text = "Stop";
+                Start = false;
+            }
+            else {
+                th.Abort();
+                timerTime.Stop();
+                buttonStart.Text = "Start";
+                Start = true;
+            }
+            
         }
         private void BruteForceChars() {
             int min = 32, max = 126;
@@ -97,17 +110,25 @@ namespace BrutalniSila {
                 hash++;
             }
             timerTime.Stop();
-            MessageBox.Show("succ");
+            MessageBox.Show("Našel jsi heslo: " + new string(c), "Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Start = true;
         }
         private void BruteForceNums() {
-            ulong password = UInt64.Parse(textBoxPassword.Text);
-            while (Num != password) {
-                Num++;
-                while (Erase) { }
-                hash++;
+            if (UInt64.TryParse(textBoxPassword.Text, out ulong i)) {
+                ulong password = UInt64.Parse(textBoxPassword.Text);
+                while (Num != password) {
+                    Num++;
+                    while (Erase) { }
+                    hash++;
+                }
+                timerTime.Stop();
+                MessageBox.Show("Našel jsi heslo: " + Num.ToString(), "Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            timerTime.Stop();
-            MessageBox.Show("succ");
+            else {
+                timerTime.Stop();
+                MessageBox.Show("Nezadal jsi PIN kód!!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+            }
+            Start = true;
         }
         private void timerTime_Tick(object sender, EventArgs e) {
             labelTime.Text = (DateTime.Now - startTime).ToString(@"hh\:mm\:ss\.fff") + " s";
@@ -117,6 +138,7 @@ namespace BrutalniSila {
             Erase = true;
             hash = 0;
             Erase = false;
+            if (Start) { buttonStart.Text = "Start"; }
         }
     }
 }
