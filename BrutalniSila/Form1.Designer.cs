@@ -44,16 +44,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.labelETime = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonStart
             // 
             this.buttonStart.BackColor = System.Drawing.Color.Transparent;
             this.buttonStart.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStart.Location = new System.Drawing.Point(325, 18);
+            this.buttonStart.Location = new System.Drawing.Point(186, 54);
             this.buttonStart.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(113, 34);
+            this.buttonStart.Size = new System.Drawing.Size(78, 29);
             this.buttonStart.TabIndex = 0;
             this.buttonStart.Text = "Start";
             this.buttonStart.UseVisualStyleBackColor = false;
@@ -61,10 +63,10 @@
             // 
             // textBoxPassword
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(167, 19);
+            this.textBoxPassword.Location = new System.Drawing.Point(157, 17);
             this.textBoxPassword.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.Size = new System.Drawing.Size(148, 34);
+            this.textBoxPassword.Size = new System.Drawing.Size(107, 29);
             this.textBoxPassword.TabIndex = 1;
             this.textBoxPassword.Text = "Password";
             // 
@@ -73,10 +75,10 @@
             this.labelHash.AutoSize = true;
             this.labelHash.BackColor = System.Drawing.Color.Transparent;
             this.labelHash.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.labelHash.Location = new System.Drawing.Point(175, 173);
+            this.labelHash.Location = new System.Drawing.Point(153, 118);
             this.labelHash.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.labelHash.Name = "labelHash";
-            this.labelHash.Size = new System.Drawing.Size(65, 27);
+            this.labelHash.Size = new System.Drawing.Size(52, 21);
             this.labelHash.TabIndex = 2;
             this.labelHash.Text = "0 MH";
             // 
@@ -89,10 +91,10 @@
             this.labelTime.AutoSize = true;
             this.labelTime.BackColor = System.Drawing.Color.Transparent;
             this.labelTime.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.labelTime.Location = new System.Drawing.Point(175, 128);
+            this.labelTime.Location = new System.Drawing.Point(153, 88);
             this.labelTime.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(39, 27);
+            this.labelTime.Size = new System.Drawing.Size(31, 21);
             this.labelTime.TabIndex = 5;
             this.labelTime.Text = "0 s";
             // 
@@ -101,10 +103,10 @@
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label4.Location = new System.Drawing.Point(11, 173);
+            this.label4.Location = new System.Drawing.Point(15, 118);
             this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(107, 27);
+            this.label4.Size = new System.Drawing.Size(87, 21);
             this.label4.TabIndex = 6;
             this.label4.Text = "Hash rate:";
             // 
@@ -113,10 +115,10 @@
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label5.Location = new System.Drawing.Point(15, 22);
+            this.label5.Location = new System.Drawing.Point(15, 20);
             this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(164, 27);
+            this.label5.Size = new System.Drawing.Size(131, 21);
             this.label5.TabIndex = 7;
             this.label5.Text = "Enter password:";
             // 
@@ -125,10 +127,10 @@
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label7.Location = new System.Drawing.Point(11, 128);
+            this.label7.Location = new System.Drawing.Point(15, 88);
             this.label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(96, 27);
+            this.label7.Size = new System.Drawing.Size(78, 21);
             this.label7.TabIndex = 9;
             this.label7.Text = "Runtime:";
             // 
@@ -137,11 +139,12 @@
             this.radioButton1.AutoSize = true;
             this.radioButton1.BackColor = System.Drawing.Color.Transparent;
             this.radioButton1.Checked = true;
+            this.radioButton1.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.radioButton1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.radioButton1.Location = new System.Drawing.Point(49, 74);
+            this.radioButton1.Location = new System.Drawing.Point(19, 61);
             this.radioButton1.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(124, 31);
+            this.radioButton1.Size = new System.Drawing.Size(76, 20);
             this.radioButton1.TabIndex = 10;
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Password";
@@ -151,11 +154,12 @@
             // 
             this.radioButton2.AutoSize = true;
             this.radioButton2.BackColor = System.Drawing.Color.Transparent;
+            this.radioButton2.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.radioButton2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.radioButton2.Location = new System.Drawing.Point(247, 74);
+            this.radioButton2.Location = new System.Drawing.Point(103, 61);
             this.radioButton2.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(115, 31);
+            this.radioButton2.Size = new System.Drawing.Size(72, 20);
             this.radioButton2.TabIndex = 11;
             this.radioButton2.Text = "Pin code";
             this.radioButton2.UseVisualStyleBackColor = false;
@@ -170,10 +174,10 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(11, 217);
+            this.label1.Location = new System.Drawing.Point(15, 148);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(158, 27);
+            this.label1.Size = new System.Drawing.Size(128, 21);
             this.label1.TabIndex = 12;
             this.label1.Text = "Estimated time:";
             // 
@@ -182,28 +186,54 @@
             this.labelETime.AutoSize = true;
             this.labelETime.BackColor = System.Drawing.Color.Transparent;
             this.labelETime.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.labelETime.Location = new System.Drawing.Point(175, 217);
+            this.labelETime.Location = new System.Drawing.Point(153, 148);
             this.labelETime.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.labelETime.Name = "labelETime";
-            this.labelETime.Size = new System.Drawing.Size(39, 27);
+            this.labelETime.Size = new System.Drawing.Size(31, 21);
             this.labelETime.TabIndex = 13;
             this.labelETime.Text = "0 s";
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(17, 281);
+            this.progressBar1.Location = new System.Drawing.Point(19, 205);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(401, 47);
+            this.progressBar1.Size = new System.Drawing.Size(245, 32);
             this.progressBar1.TabIndex = 14;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label2.Location = new System.Drawing.Point(15, 177);
+            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(140, 21);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Password length:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label3.Location = new System.Drawing.Point(153, 177);
+            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(64, 21);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "0 chars";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 27F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(450, 352);
+            this.ClientSize = new System.Drawing.Size(277, 252);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.labelETime);
             this.Controls.Add(this.label1);
@@ -247,6 +277,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelETime;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
 
