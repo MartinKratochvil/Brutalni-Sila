@@ -121,14 +121,15 @@ namespace BrutalniSila {
                     while (Erase) { }
                     hash++;
                 }
+                Start = true;
                 timerTime.Stop();
                 MessageBox.Show("Našel jsi heslo: " + Num.ToString(), "Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else {
                 timerTime.Stop();
+                Start = true;
                 MessageBox.Show("Nezadal jsi PIN kód!!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); 
             }
-            Start = true;
         }
         private void timerTime_Tick(object sender, EventArgs e) {
             labelTime.Text = (DateTime.Now - startTime).ToString(@"h\:mm\:ss\.fff");
@@ -143,6 +144,8 @@ namespace BrutalniSila {
             else if (radioButton1.Checked && TimeSpan.FromSeconds(Math.Pow(94, c.Length) / hash) > DateTime.Now - startTime) { 
                 labelETime.Text = (TimeSpan.FromSeconds(Math.Pow(94, c.Length) / hash) - (DateTime.Now - startTime)).ToString(@"h\:mm\:ss");
                 labelChars.Text = c.Length.ToString() + " chars";
+                progressBarTime.Maximum = (int)(Math.Pow(94, c.Length) / hash);
+                progressBarTime.Value = (int)(DateTime.Now - startTime).TotalSeconds;
             }
             else if (TimeSpan.FromSeconds(Math.Pow(10, Num.ToString().Length) / hash) > DateTime.Now - startTime) { 
                 labelETime.Text = (TimeSpan.FromSeconds(Math.Pow(10, Num.ToString().Length) / hash) - (DateTime.Now - startTime)).ToString(@"h\:mm\:ss");
