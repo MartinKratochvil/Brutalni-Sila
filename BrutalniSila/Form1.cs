@@ -41,6 +41,8 @@ namespace BrutalniSila {
                     timerHash.Start();
                     timerTime.Start();
                     buttonStart.Text = "stop";
+                    radioButton1.Enabled = false;
+                    radioButton2.Enabled = false;
                     Start = false;
                 }
             }
@@ -48,12 +50,8 @@ namespace BrutalniSila {
         private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
             using (StreamWriter write = File.CreateText(@"../../Log.dat")) {
                 if (th.IsAlive) {
-                    if (radioButton1.Checked) {
-                        write.WriteLine(new string(c) + "°" + textBoxPassword.Text + "°password°" + (DateTime.Now - startTime).ToString());
-                    }
-                    else {
-                        write.WriteLine(Num.ToString() + "°" + textBoxPassword.Text + "°pin°" + (DateTime.Now - startTime).ToString());
-                    }
+                    if (radioButton1.Checked) { write.WriteLine(new string(c) + "°" + textBoxPassword.Text + "°password°" + (DateTime.Now - startTime).ToString()); }
+                    else { write.WriteLine(Num.ToString() + "°" + textBoxPassword.Text + "°pin°" + (DateTime.Now - startTime).ToString()); }
                     th.Abort();
                 }
                 else { write.WriteLine("none"); }
@@ -71,12 +69,16 @@ namespace BrutalniSila {
                 timerHash.Start();
                 timerTime.Start();
                 buttonStart.Text = "Stop";
+                radioButton1.Enabled = false;
+                radioButton2.Enabled = false;
                 Start = false;
             }
             else {
                 th.Abort();
                 timerTime.Stop();
                 buttonStart.Text = "Start";
+                radioButton1.Enabled = true;
+                radioButton2.Enabled = true;
                 Start = true;
             }
             
@@ -99,9 +101,7 @@ namespace BrutalniSila {
                         c[0]++;
                         if (c[0] > max) {
                             c = new char[c.Length + 1];
-                            for (int j = 0; j < c.Length; j++) {
-                                c[j] = (char)min;
-                            }
+                            for (int j = 0; j < c.Length; j++) { c[j] = (char)min; }
                             i = c.Length - 1;
                         }
                     }
@@ -110,8 +110,8 @@ namespace BrutalniSila {
                 hash++;
             }
             timerTime.Stop();
-            MessageBox.Show("Našel jsi heslo: " + new string(c), "Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Start = true;
+            MessageBox.Show("Našel jsi heslo: " + new string(c), "Successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         private void BruteForceNums() {
             if (UInt64.TryParse(textBoxPassword.Text, out ulong i)) {
@@ -131,14 +131,26 @@ namespace BrutalniSila {
             Start = true;
         }
         private void timerTime_Tick(object sender, EventArgs e) {
-            labelTime.Text = (DateTime.Now - startTime).ToString(@"hh\:mm\:ss\.fff") + " s";
+            labelTime.Text = (DateTime.Now - startTime).ToString(@"h\:mm\:ss\.fff");
         }
         private void timerHash_Tick(object sender, EventArgs e) {
             labelHash.Text = (Math.Round(hash / 1000000, 3)).ToString() + " MH";
+            if (Start) {
+                buttonStart.Text = "Start";
+                radioButton1.Enabled = true;
+                radioButton2.Enabled = true;
+            }
+            else if (radioButton1.Checked && TimeSpan.FromSeconds(Math.Pow(94, c.Length) / hash) > DateTime.Now - startTime) { 
+                labelETime.Text = (TimeSpan.FromSeconds(Math.Pow(94, c.Length) / hash) - (DateTime.Now - startTime)).ToString(@"h\:mm\:ss");
+                labelChars.Text = c.Length.ToString() + " chars";
+            }
+            else if (TimeSpan.FromSeconds(Math.Pow(10, Num.ToString().Length) / hash) > DateTime.Now - startTime) { 
+                labelETime.Text = (TimeSpan.FromSeconds(Math.Pow(10, Num.ToString().Length) / hash) - (DateTime.Now - startTime)).ToString(@"h\:mm\:ss");
+                labelChars.Text = Num.ToString().Length.ToString() + " chars";
+            }
             Erase = true;
             hash = 0;
-            Erase = false;
-            if (Start) { buttonStart.Text = "Start"; }
+            Erase = false;      
         }
     }
 }
